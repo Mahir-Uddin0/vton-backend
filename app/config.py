@@ -5,6 +5,8 @@ load_dotenv()
 
 HF_SPACE_NAME = os.getenv("HF_SPACE_NAME")
 
+HF_TOKEN = os.getenv("HF_TOKEN")
+
 ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS").split(",")
 
 HOST = os.getenv("HOST")

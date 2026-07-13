@@ -7,6 +7,10 @@ from gradio_client import Client, handle_file
 from app.config import ALLOWED_ORIGINS
 from fastapi.middleware.cors import CORSMiddleware
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 app = FastAPI()
 
 app.add_middleware(
@@ -18,9 +22,10 @@ app.add_middleware(
 )
 
 # Initialize the gradio_client once for all requests
-from app.config import HF_SPACE_NAME
+from app.config import HF_SPACE_NAME, HF_TOKEN
 
-client = Client(HF_SPACE_NAME)
+
+client = Client(HF_SPACE_NAME, hf_token=HF_TOKEN)
 
 @app.post("/tryon")
 async def generate_tryon(
