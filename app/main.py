@@ -4,10 +4,23 @@ import asyncio, os
 from tempfile import NamedTemporaryFile
 from gradio_client import Client, handle_file
 
+from app.config import ALLOWED_ORIGINS
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Initialize the gradio_client once for all requests
-client = Client("yisol/IDM-VTON")
+from app.config import HF_SPACE_NAME
+
+client = Client(HF_SPACE_NAME)
 
 @app.post("/tryon")
 async def generate_tryon(
