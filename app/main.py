@@ -24,8 +24,15 @@ app.add_middleware(
 # Initialize the gradio_client once for all requests
 from app.config import HF_SPACE_NAME, HF_TOKEN
 
+import inspect
+import gradio_client
+from gradio_client import Client
 
-client = Client(HF_SPACE_NAME, hf_token=HF_TOKEN)
+print("gradio_client version:", gradio_client.__version__)
+print("Client imported from:", inspect.getfile(Client))
+print("Client signature:", inspect.signature(Client.__init__))
+
+client = Client(HF_SPACE_NAME, token=HF_TOKEN)
 
 @app.post("/tryon")
 async def generate_tryon(
